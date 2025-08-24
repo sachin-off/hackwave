@@ -1,8 +1,15 @@
- /** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
 export default {
-   content: ["./src/**/*.{html,js}"],
-   theme: {
-     extend: {},
-   },
-   plugins: [],
- }
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        peach: {
+          200: "#FFDAB9",
+          300: "#FFB07C",
+        },
+      },
+    },
+  },
+  plugins: [],
+};
