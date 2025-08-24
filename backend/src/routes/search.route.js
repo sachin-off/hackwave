@@ -1,6 +1,6 @@
 import express from "express"
 import multer from "multer"
-import { textSearch,imageSearch } from "../controllers/search.controller";
+import { textSearch,imageSearch } from "../controllers/search.controller.js";
 
 const router = express.Router();
 

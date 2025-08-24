@@ -1,4 +1,4 @@
-import {pipeline} from "@xenva/transformer"
+import {pipeline} from "@xenova/transformers"
 
 let embedder;
 const loadModel = async() =>{

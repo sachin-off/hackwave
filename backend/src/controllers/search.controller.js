@@ -1,8 +1,7 @@
-import { googleSearch } from "../services/googleService";
+import { googleSearch } from "../services/googleService.js";
 import fs from "fs"
-import vision from "@google-cloud/vision"
+import { getImageLabels } from "../services/clipService.js";
 
-const client = new vision.ImageAnnotatorClient();
 export const textSearch = async (req,res)=>{
     try {
         const {q,brand,price} = req.query
@@ -32,23 +31,17 @@ export const imageSearch =async(req,res)=>{
             return res.status(400).json({message:"no image uploaded"})
         }
         const imagePath = req.file.path;
-        const [result] = await client.labelDetection(imagePath);
-        const labels = result.labelAnnotations.map(label=>label.description)
+        const labels = await getImageLabels(imagePath)
         if(labels.length === 0){
             return res.status(404).json({message:"No label detected in image"})
         }
         const query = labels.slice(0,3).join("")
         const results = await googleSearch(query);
-        fs.unlink(imagePath,(err)=>{
-            if(err){
-                console.error("Failed to delete message",err.message)
-            }
-        })
+        fs.unlinkSync(imagePath)
         res.json({
             success:true,
-            detectedLabels:labels.slice(0,5),
             query,
-            count:results.length,
+            labels,
             results
         })
     } catch (error) {

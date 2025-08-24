@@ -1,7 +1,7 @@
 import axios from "axios"
-import { rankresults } from "./aiService";
+import { rankresults } from "./aiService.js";
 
-export const googleSearch =(query)=>{
+export const googleSearch =async(query)=>{
     try {
         const apiKey = process.env.CSE_API;
         const cx = process.env.SEARCH_ENGINE_ID
